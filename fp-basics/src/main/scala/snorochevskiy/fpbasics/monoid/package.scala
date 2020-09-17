@@ -1,17 +1,15 @@
 package snorochevskiy.fpbasics
 
+import snorochevskiy.fpbasics.semigroup.Semigroup
+
 package object monoid {
 
-  trait Monoid[A] {
+  trait Monoid[A] extends Semigroup[A] {
     def zero: A
-    def mappend(a1: A, a2: A): A
   }
 
-  implicit class MonoidOps[A: Monoid](val self: A) {
-    def |+|(other: A): A = {
-      val monoidInstance: Monoid[A] = implicitly[Monoid[A]]
-      monoidInstance.mappend(self, other)
-    }
+  implicit class MonoidOps[A](val self: A) {
+    def |+|(other: A)(implicit monoidInstance: Monoid[A]): A =
+      monoidInstance.combine(self, other)
   }
-
 }

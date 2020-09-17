@@ -3,7 +3,7 @@ package snorochevskiy.fpbasics.monoid
 object MyMonoids {
   implicit val opIntMonoid = new Monoid[Option[Int]] {
     def zero: Option[Int] = None
-    def mappend(a1: Option[Int], a2: Option[Int]): Option[Int] =
+    def combine(a1: Option[Int], a2: Option[Int]): Option[Int] =
       (a1, a2) match {
         case (Some(accum), Some(elem)) => Some(accum + elem)
         case (Some(accum), None)       => Some(accum)
@@ -28,7 +28,7 @@ object MonoidDemo2 {
   def withMonoidApproach(inputs: List[Input]): Option[Int] =
     inputs
       .map(a => getMaybeNum(a))
-      .reduce{ (accumOp: Option[Int], elemOp: Option[Int]) => accumOp |+| elemOp }
+      .foldLeft(None: Option[Int]){ (accumOp: Option[Int], elemOp: Option[Int]) => accumOp |+| elemOp }
 
 }
 

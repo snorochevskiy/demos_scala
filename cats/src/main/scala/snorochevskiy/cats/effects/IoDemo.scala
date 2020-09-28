@@ -49,7 +49,8 @@ object IoDemo {
   def main(args: Array[String]): Unit = {
     val src = new File("/home/stas/test_src.txt")
     val dst = new File("/home/stas/test_dst.txt")
-    val computation = for {
+    val computation: IO[Unit] = for {
+      _     <- if (!src.exists()) IO.raiseError(new IllegalArgumentException(s"No file: ${src.getName}")) else IO.unit
       count <- copy(src, dst)
       _     <- IO(println(s"$count bytes copied from ${src.getPath} to ${dst.getPath}"))
     } yield ()

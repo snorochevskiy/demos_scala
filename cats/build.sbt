@@ -7,7 +7,9 @@ ThisBuild / organization     := "snorochevskiy"
 libraryDependencies ++= Seq(
   "org.typelevel" %% "simulacrum" % "1.0.0",
   "org.typelevel" %% "cats-core" % "2.0.0",
-  "org.typelevel" %% "cats-effect" % "2.2.0"
+  "org.typelevel" %% "cats-effect" % "2.2.0",
+
+  "com.github.tomakehurst" % "wiremock" % "2.17.0" % Test
 )
 
 //scalacOptions in ThisBuild += "-feature"
